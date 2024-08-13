@@ -15,7 +15,7 @@ However there are 2 options that are highly recommended:
     This editor although is light weight and efficient can be daunting at first.
     For that reason we suggest using a more friendly editor such as VSCode (VSCode installation required).
 
-    ![](images/set-default-editor.png?raw=true)
+    ![Choosing the default editor used by Git](images/set-default-editor.PNG)
 
     Notes: 
 
