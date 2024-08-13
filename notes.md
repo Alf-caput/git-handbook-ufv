@@ -1,4 +1,4 @@
-# git notes
+# Git notes
 ## Introduction
 This document intends to show a simple but consistent workflow using Git, it will not focus on how Git works under the hood, but on how to use it efficiently.
 
@@ -9,24 +9,30 @@ For the installation we can leave most of the configurations as they are by defa
 
 However there are 2 options that are highly recommended: 
 
-- **Choosing the default editor used by git**
+- **Choosing the default editor used by Git**
 
-    By default the editor that git uses for commit messages, merge commits and so on is VI (Visual Improved).
+    By default the editor that Git uses for commit messages, merge commits and so on is VI (Visual Improved).
     This editor although is light weight and efficient can be daunting at first.
-    For that reason we suggest using a more friendly editor such as VSCode
+    For that reason we suggest using a more friendly editor such as VSCode.
 
     ![image info](./images/set-default-editor.png?raw=true)
 
     Notes: 
-    - In case you set Vi as the default editor and by accident you happen to enter the editor, to exit press `Esc` to enter normal mode then `:q!` to exit the file without saving changes 
-    - It is possible to change the default editor used by git with the following command
-    ```shell
-    git config --global core.editor code
+
+    In case you set Vi as the default editor and by accident you happen to enter the editor, to exit press `Esc` to enter normal mode then `:q!` to exit the file without saving changes.
+
+    It is possible to change the default editor used by Git to VSCode (aliased as `code` with `--wait` flag) with the following command:
+
+    ```bash
+    $ git config --global core.editor "code --wait"
     ```
-    It is also possible to set the default editor only for the local repo by using the `--local` flag
+    You can also edit .gitconfig for the global config at `~/.gitconfig` (on Windows `C:\Users\username\.gitconfig`).
 
-    Or by editing .gitconfig for the global config on Windows C:\Users\username\.gitconfig
+    To see the current default editor either view `.gitconfig` or use:
+    ```shell
+    git config --global core.editor
+    ```
 
-    And for just the local repo under the `.git` folder by editing the `config` file within
+    It is also possible to set or view the default editor only for the local repo by using the `--local` flag
 
-
+    For the local repo the `.git` folder contains the `config` file.
