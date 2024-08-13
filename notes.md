@@ -24,7 +24,7 @@ However there are 2 options that are highly recommended:
     It is possible to change the default editor used by Git to VSCode (aliased as `code` with `--wait` flag) with the following command:
 
     ```bash
-    $ git config --global core.editor "code --wait"
+    git config --global core.editor "code --wait"
     ```
     You can view and edit the global config at `~/.gitconfig` (on Windows `C:\Users\username\.gitconfig`).
     
@@ -32,7 +32,7 @@ However there are 2 options that are highly recommended:
 
     To see the current default editor either view `.gitconfig` or use:
     ```bash
-    $ git config --global core.editor
+    git config --global core.editor
     ```
 <!-- 
     It is also possible to set or view the default editor only for the local repo by using the `--local` flag
