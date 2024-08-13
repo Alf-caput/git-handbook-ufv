@@ -13,7 +13,7 @@ However there are 2 options that are highly recommended:
 
     By default the editor that Git uses for commit messages, merge commits and so on is VI (Visual Improved).
     This editor although is light weight and efficient can be daunting at first.
-    For that reason we suggest using a more friendly editor such as VSCode.
+    For that reason we suggest using a more friendly editor such as VSCode (VSCode installation required).
 
     ![](images/set-default-editor.png?raw=true)
 
@@ -28,11 +28,11 @@ However there are 2 options that are highly recommended:
     ```
     You can view and edit the global config at `~/.gitconfig` (on Windows `C:\Users\username\.gitconfig`).
     
-    (In case you set a wrong editor the command will not work and you will have to manually open and edit `.gitconfig`)
+    (In case you set an invalid editor the command may not work and you will have to manually open and edit `.gitconfig`)
 
     To see the current default editor either view `.gitconfig` or use:
-    ```shell
-    git config --global core.editor
+    ```bash
+    $ git config --global core.editor
     ```
 <!-- 
     It is also possible to set or view the default editor only for the local repo by using the `--local` flag
