@@ -15,7 +15,7 @@ However there are 2 options that are highly recommended:
     This editor although is light weight and efficient can be daunting at first.
     For that reason we suggest using a more friendly editor such as VSCode.
 
-    ![image info](./images/set-default-editor.png?raw=true)
+    ![](images/set-default-editor.png?raw=true)
 
     Notes: 
 
@@ -26,13 +26,15 @@ However there are 2 options that are highly recommended:
     ```bash
     $ git config --global core.editor "code --wait"
     ```
-    You can also edit .gitconfig for the global config at `~/.gitconfig` (on Windows `C:\Users\username\.gitconfig`).
+    You can view and edit the global config at `~/.gitconfig` (on Windows `C:\Users\username\.gitconfig`).
+    
+    (In case you set a wrong editor the command will not work and you will have to manually open and edit `.gitconfig`)
 
     To see the current default editor either view `.gitconfig` or use:
     ```shell
     git config --global core.editor
     ```
-
+<!-- 
     It is also possible to set or view the default editor only for the local repo by using the `--local` flag
 
-    For the local repo the `.git` folder contains the `config` file.
+    For the local repo the `.git` folder contains the `config` file. -->
