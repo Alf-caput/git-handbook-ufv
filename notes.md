@@ -60,7 +60,7 @@ However there are 2 options that are highly recommended:
     git config --global init.defaultBranch main
     ```
 
-    To see the current default editor either view `.gitconfig` or use:
+    To see the current default branch either view `.gitconfig` or use:
 
     ```bash
     git config --global init.defaultBranch
