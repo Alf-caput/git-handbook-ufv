@@ -1,10 +1,13 @@
 # Git notes
+
 ## Introduction
+
 This document intends to show a simple but consistent workflow using Git, it will not focus on how Git works under the hood, but on how to use it efficiently.
 
 Git is a free and open source distributed version control system (VCS), that tracks changes made to a file or set of files over time, allowing developers to manage different versions of their codebase efficiently.
 
 ## 1. Installation (Windows)
+
 For the installation we can leave most of the configurations as they are by default.
 
 However there are 2 options that are highly recommended: 
@@ -31,9 +34,11 @@ However there are 2 options that are highly recommended:
     (In case you set an invalid editor the command may not work and you will have to manually open and edit `.gitconfig`)
 
     To see the current default editor either view `.gitconfig` or use:
+
     ```bash
     git config --global core.editor
     ```
+
 <!-- 
     It is also possible to set or view the default editor only for the local repo by using the `--local` flag
 
@@ -65,6 +70,7 @@ However there are 2 options that are highly recommended:
     ```bash
     git config --global init.defaultBranch
     ```
+
     (If you are letting Git decide, the command will fail and won't appear in `.gitconfig`)
 
 Once the instalation is finished you can open a new terminal instance and pass the following command to check it was succesfully installed:
@@ -72,6 +78,7 @@ Once the instalation is finished you can open a new terminal instance and pass t
 ```bash
 git --version
 ```
+
 If git was installed and recognized the output of the command will be its version.
 
 ## 2. Bash commands
@@ -95,11 +102,32 @@ Some basic bash commands knowledge is suggested but feel free to skip this if al
 ## 3. Initial configuration
 
 Before we start with Git we have to set username and email. Either edit `.gitconfig` or use:
+
 ```bash
 git config --global user.name "John Doe"
 ```
+
 ```bash
 git config --global user.email "johndoe@email.com"
 ```
 
 They are both required so Git can determine the author of a change in a project.
+
+## Initializing and status
+
+What differentiates a regular directory from a directory whose changes are tracked by Git is the `.git/` folder. 
+
+Folders and filenames preceeded by `.` are usually hidden by default, to view them in bash we could use:
+
+```bash
+ls -a
+```
+
+Git itself provides a command to output the tracking status of the current directory:
+
+```bash
+git status
+```
+
+This command will list all files whose changes aren't yet tracked by Git, and in case isn't a Git repository will output `fatal: not a git repository (or any of the parent directories): .git`.
+
