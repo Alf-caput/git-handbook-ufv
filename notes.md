@@ -60,12 +60,19 @@ However there are 2 options that are highly recommended:
     git config --global init.defaultBranch main
     ```
 
-    To see the current default editor either view `.gitconfig` or use:
+    To see the current default branch either view `.gitconfig` or use:
 
     ```bash
     git config --global init.defaultBranch
     ```
     (If you are letting Git decide, the command will fail and won't appear in `.gitconfig`)
+
+Once the instalation is finished you can open a new terminal instance and pass the following command to check it was succesfully installed:
+
+```bash
+git --version
+```
+If git was installed and recognized the output of the command will be its version.
 
 ## 2. Bash commands
 
@@ -85,3 +92,14 @@ Some basic bash commands knowledge is suggested but feel free to skip this if al
 |    rm   |          remove         |    -r -f    |  recursive (directories), force  |
 |         |                         |  --version  |              version             |
 
+## 3. Initial configuration
+
+Before we start with Git we have to set username and email. Either edit `.gitconfig` or use:
+```bash
+git config --global user.name "John Doe"
+```
+```bash
+git config --global user.email "johndoe@email.com"
+```
+
+They are both required so Git can determine the author of a change in a project.
