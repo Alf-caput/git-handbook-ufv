@@ -113,9 +113,9 @@ git config --global user.email "johndoe@email.com"
 
 They are both required so Git can determine the author of a change in a project.
 
-## Initializing and status
+## 4. Initializing and status
 
-What differentiates a regular directory from a directory whose changes are tracked by Git is the `.git/` folder. 
+A git repository or git repo is a regular directory whose changes are being stracked by Git through the `.git/` folder. 
 
 Folders and filenames preceeded by `.` are usually hidden by default, to view them in bash we could use:
 
@@ -129,5 +129,36 @@ Git itself provides a command to output the tracking status of the current direc
 git status
 ```
 
-This command will list all files whose changes aren't yet tracked by Git, and in case isn't a Git repository will output `fatal: not a git repository (or any of the parent directories): .git`.
+This command will list all files and changes that aren't yet tracked by Git, and in case isn't a Git repository will output `fatal: not a git repository (or any of the parent directories): .git`.
 
+To initialize a git repository locally we can use:
+
+```bash
+git init
+```
+
+or for an existing remote repository (which will be covered later)
+
+```bash
+git clone <remote-git-repo-url>
+```
+
+We can also use a different name for the cloned repository passing a second argument
+
+```bash
+git clone <remote-git-repo-url> <custom-name>
+```
+
+Once we've done either one of those, using
+
+```bash
+git status
+```
+
+will tell us in which branch we are and some extra information related to changes.
+
+Is worth noting, the flag -s which stands for short will return a short format output
+
+```bash
+git status -s
+```
