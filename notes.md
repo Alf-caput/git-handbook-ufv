@@ -175,13 +175,15 @@ Is worth noting, the flag -s which stands for short will return a short format o
 git status -s
 ```
 
-## 5. Adding and commiting
+## 5. Adding, discarding and commiting
 
 Locally changes in a git repository can be in one of this phases:
 
 ![Staging Diagram](images/staging-changes-local.png)
 
-First we add the changes to the staging area (in advance stage changes) with:
+In a nutshell, first they exist in our working directory, then we validate which ones we should keep and finally git creates a version checkpoint with the changes we have selected.
+
+To move changes to the staging area (in advance stage changes) a simple option is:
 
 ```bash
 git add <file.txt>
@@ -203,17 +205,28 @@ git add .
 
 (We can use either relative paths or absolute paths)
 
-To unstage changes, that is to discard them from the staging area, we could use:
+It is possible to discard changes from either the staging area or the working directory.
+
+To unstage changes, that is to discard them from the staging area, we could <ins>SAFELY</ins> use:
 
 ```bash
-git restore --staged <file>
+git reset <file>
 ```
 
-This is safe to do, however without the `--staged ` flag it will restore the file changes to git's last commit either if those changes are staged or not (if not tracked it will not delete the file). Therefore without the `--staged` flag the command 
-`git restore` is <ins>DANGEROUS</ins>
+We can also discard changes (staged or unstaged) of a file from the working directory, so the file is in sync with last git checkpoint, this action is <ins>DANGEROUS</ins>.
+
+Discard unstaged changes:
 
 ```bash
 git restore <file>
 ```
 
+Discard staged changes:
+
+```bash
+git restore --staged <file>
+```
+
 Note: Is not dangerous if the file isn't still tracked by git, that is, it has never been commited.
+
+This and other undoing commands will be covered later on.
