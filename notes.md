@@ -250,6 +250,10 @@ In conclusion, a safe workflow we will do is `git restore --staged` -> `git rest
 
 ## 6. Commit and commit messages
 
+|   Command  |            Description           | Common Args |     Args Descriptions     |
+|:----------:|:--------------------------------:|:-----------:|:-------------------------:|
+| git commit | Record changes to the repository |    -a -m    | stage all, inline message |
+
 Once we have the changes we want in our staging area, we are ready for commiting.
 
 ```bash
@@ -286,7 +290,12 @@ git commit -a
 In combination with `-m`:
 
 ```bash
-git commit -am "Remove multiprocessing"
+git commit -a -m "Remove multiprocessing"
 ```
 
+or
+
+```bash
+git commit -am "Remove multiprocessing"
+```
 
