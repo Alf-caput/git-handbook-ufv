@@ -115,6 +115,12 @@ They are both required so Git can determine the author of a change in a project.
 
 ## 4. Initializing and status
 
+|   Command  |               Description               |        Common Args        |              Args Descriptions             |
+|:----------:|:---------------------------------------:|:-------------------------:|:------------------------------------------:|
+| git status |       Show the working tree status      |             -s            |        short-format (no branch info)       |
+|  git clone | Clone a repository into a new directory | \<git-repo-url> \<location> | If no location clones to working directory |
+|  git init  |         Create a Git repository         |                           |                                            |
+
 A git repository or git repo is a regular directory whose changes are being stracked by Git through the `.git/` folder. 
 
 Folders and filenames preceeded by `.` are usually hidden by default, to view them in bash we could use:
@@ -135,6 +141,12 @@ To initialize a git repository locally we can use:
 
 ```bash
 git init
+```
+
+being able to provide a location at which will be initialized
+
+```bash
+git init <location>
 ```
 
 or for an existing remote repository (which will be covered later)
@@ -162,3 +174,46 @@ Is worth noting, the flag -s which stands for short will return a short format o
 ```bash
 git status -s
 ```
+
+## 5. Adding and commiting
+
+Locally changes in a git repository can be in one of this phases:
+
+![Staging Diagram](images/staging-changes-local.png)
+
+First we add the changes to the staging area (in advance stage changes) with:
+
+```bash
+git add <file.txt>
+```
+
+Note: To check which changes have been staged we can use `git status`
+
+It is possible to stage multiple files at the same time separating them by spaces.
+
+```bash
+git add <file1> <file2> <file3>
+```
+
+To stage all changes in the current directory we could do it by using the relative path with `.`
+
+```bash
+git add .
+```
+
+(We can use either relative paths or absolute paths)
+
+To unstage changes, that is to discard them from the staging area, we could use:
+
+```bash
+git restore --staged <file>
+```
+
+This is safe to do, however without the `--staged ` flag it will restore the file changes to git's last commit either if those changes are staged or not (if not tracked it will not delete the file). Therefore without the `--staged` flag the command 
+`git restore` is <ins>DANGEROUS</ins>
+
+```bash
+git restore <file>
+```
+
+Note: Is not dangerous if the file isn't still tracked by git, that is, it has never been commited.
