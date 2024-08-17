@@ -1,10 +1,13 @@
 # Git notes
+
 ## Introduction
+
 This document intends to show a simple but consistent workflow using Git, it will not focus on how Git works under the hood, but on how to use it efficiently.
 
 Git is a free and open source distributed version control system (VCS), that tracks changes made to a file or set of files over time, allowing developers to manage different versions of their codebase efficiently.
 
 ## 1. Installation (Windows)
+
 For the installation we can leave most of the configurations as they are by default.
 
 However there are 2 options that are highly recommended: 
@@ -31,9 +34,11 @@ However there are 2 options that are highly recommended:
     (In case you set an invalid editor the command may not work and you will have to manually open and edit `.gitconfig`)
 
     To see the current default editor either view `.gitconfig` or use:
+
     ```bash
     git config --global core.editor
     ```
+
 <!-- 
     It is also possible to set or view the default editor only for the local repo by using the `--local` flag
 
@@ -65,7 +70,16 @@ However there are 2 options that are highly recommended:
     ```bash
     git config --global init.defaultBranch
     ```
+
     (If you are letting Git decide, the command will fail and won't appear in `.gitconfig`)
+
+Once the instalation is finished you can open a new terminal instance and pass the following command to check it was succesfully installed:
+
+```bash
+git --version
+```
+
+If git was installed and recognized the output of the command will be its version.
 
 ## 2. Bash commands
 
@@ -85,3 +99,66 @@ Some basic bash commands knowledge is suggested but feel free to skip this if al
 |    rm   |          remove         |    -r -f    |  recursive (directories), force  |
 |         |                         |  --version  |              version             |
 
+## 3. Initial configuration
+
+Before we start with Git we have to set username and email. Either edit `.gitconfig` or use:
+
+```bash
+git config --global user.name "John Doe"
+```
+
+```bash
+git config --global user.email "johndoe@email.com"
+```
+
+They are both required so Git can determine the author of a change in a project.
+
+## 4. Initializing and status
+
+A git repository or git repo is a regular directory whose changes are being stracked by Git through the `.git/` folder. 
+
+Folders and filenames preceeded by `.` are usually hidden by default, to view them in bash we could use:
+
+```bash
+ls -a
+```
+
+Git itself provides a command to output the tracking status of the current directory:
+
+```bash
+git status
+```
+
+This command will list all files and changes that aren't yet tracked by Git, and in case isn't a Git repository will output `fatal: not a git repository (or any of the parent directories): .git`.
+
+To initialize a git repository locally we can use:
+
+```bash
+git init
+```
+
+or for an existing remote repository (which will be covered later)
+
+```bash
+git clone <remote-git-repo-url>
+```
+
+We can also use a different name for the cloned repository passing a second argument
+
+```bash
+git clone <remote-git-repo-url> <custom-name>
+```
+
+Once we've done either one of those, using
+
+```bash
+git status
+```
+
+will tell us in which branch we are and some extra information related to changes.
+
+Is worth noting, the flag -s which stands for short will return a short format output
+
+```bash
+git status -s
+```
