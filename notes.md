@@ -181,7 +181,7 @@ Locally changes in a git repository can be in one of this phases:
 
 ![Staging Diagram](images/staging-changes-local.png)
 
-In a nutshell, first they exist in our working directory, then we validate which ones we should keep and finally git creates a version checkpoint with the changes we have selected.
+In a nutshell, first they exist in our working directory, then we validate which ones we should keep and finally git creates a version checkpoint with the changes we have selected (in advance commit).
 
 To move changes to the staging area (in advance stage changes) a simple option is:
 
@@ -230,3 +230,40 @@ git restore --staged <file>
 Note: Is not dangerous if the file isn't still tracked by git, that is, it has never been commited.
 
 This and other undoing commands will be covered later on.
+
+Once we have the changes we want in our staging area, we are ready for commiting.
+
+```bash
+git commit
+```
+
+This command will pop up a window with our default `core.editor`, which in our case is VSCode. We will then have to enter a commit message, save it and close the window. 
+
+Here are some <ins>IMPORTANT</ins> guidelines for a good commit message:
+
+- Write your commit message subject in the imperative: "Fix bug" and not "Fixed bug" or "Fixes bug."
+- Do not end the subject line with a period
+- Separate subject from body with a blank line
+- Capitalize the subject line and each paragraph
+- Wrap lines at 72 characters
+- Use the body to explain what and why you have done something
+
+We can also commit in one line without having to enter our `core.editor` using the `-m` flag and passing our message between quotes:
+
+```bash
+git commit -m "Add foo.txt"
+```
+
+There is also the `-a` flag that stages all changes in the working directory before commiting, this way we can save ourselves from using `git add`:
+
+```bash
+git commit -a
+```
+
+In combination with `-m`:
+
+```bash
+git commit -am "Remove multiprocessing"
+```
+
+
