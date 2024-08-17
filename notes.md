@@ -115,6 +115,12 @@ They are both required so Git can determine the author of a change in a project.
 
 ## 4. Initializing and status
 
+|   Command  |               Description               |        Common Args        |              Args Descriptions             |
+|:----------:|:---------------------------------------:|:-------------------------:|:------------------------------------------:|
+| git status |       Show the working tree status      |             -s            |        short-format (no branch info)       |
+|  git clone | Clone a repository into a new directory | \<git-repo-url> \<location> | If no location clones to working directory |
+|  git init  |         Create a Git repository         |                           |                                            |
+
 A git repository or git repo is a regular directory whose changes are being stracked by Git through the `.git/` folder. 
 
 Folders and filenames preceeded by `.` are usually hidden by default, to view them in bash we could use:
