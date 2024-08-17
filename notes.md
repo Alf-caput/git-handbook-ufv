@@ -143,22 +143,22 @@ To initialize a git repository locally we can use:
 git init
 ```
 
-being able to provide a location at which will be initialized
+We are able to provide a location at which will be initialized:
 
 ```bash
 git init <location>
 ```
 
-or for an existing remote repository (which will be covered later)
+And for an existing remote repository (which will be covered later)
 
 ```bash
 git clone <remote-git-repo-url>
 ```
 
-We can also use a different name for the cloned repository passing a second argument
+Also possible to provide a location folder for the copied files from the remote repo ()
 
 ```bash
-git clone <remote-git-repo-url> <custom-name>
+git clone <remote-git-repo-url> <location>
 ```
 
 Once we've done either one of those, using
@@ -169,19 +169,19 @@ git status
 
 will tell us in which branch we are and some extra information related to changes.
 
-Is worth noting, the flag -s which stands for short will return a short format output
+Is worth noting, the flag `-s` which stands for short will return a short format output
 
 ```bash
 git status -s
 ```
 
-## 5. Adding, discarding and commiting
+## 5. Adding and discarding changes
 
 Locally changes in a git repository can be in one of this phases:
 
 ![Staging Diagram](images/staging-changes-local.png)
 
-In a nutshell, first they exist in our working directory, then we validate which ones we should keep and finally git creates a version checkpoint with the changes we have selected (in advance commit).
+A git workflow in a nutshell: first they exist in our working directory, then we validate which ones we should keep and finally git creates a version checkpoint with the changes we have selected (in advance commit).
 
 To move changes to the staging area (in advance stage changes) a simple option is:
 
