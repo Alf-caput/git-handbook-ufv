@@ -115,13 +115,13 @@ They are both required so Git can determine the author of a change in a project.
 
 ## 4. Initializing and status
 
-|   Command  |               Description               |        Common Args        |              Args Descriptions             |
-|:----------:|:---------------------------------------:|:-------------------------:|:------------------------------------------:|
-| git status |       Show the working tree status      |             -s            |        short-format (no branch info)       |
-|  git clone | Clone a repository into a new directory | \<git-repo-url> \<location> | If no location clones to working directory |
-|  git init  |         Create a Git repository         |                           |                                            |
+|   Command  |               Description               |        Common Args        |               Args Descriptions              |
+|:----------:|:---------------------------------------:|:-------------------------:|:--------------------------------------------:|
+| git status |       Show the working tree status      |             -s            |         short-format (no branch info)        |
+|  git init  |         Create a Git repository         |         <location>        | If no location initializes current directory |
+|  git clone | Clone a repository into a new directory | <git-repo-url> <location> |  If no location clones to working directory  |
 
-A git repository or git repo is a regular directory whose changes are being stracked by Git through the `.git/` folder. 
+A git repository or git repo is a regular directory whose changes are being tracked by Git through the `.git` folder. 
 
 Folders and filenames preceeded by `.` are usually hidden by default, to view them in bash we could use:
 
@@ -177,6 +177,12 @@ git status -s
 
 ## 5. Adding and discarding changes
 
+|        Command       |                  Description                  | Common Args |         Args Descriptions         |
+|:--------------------:|:---------------------------------------------:|:-----------:|:---------------------------------:|
+|        git add       | Add file contents to the index (staging area) |   \<file> .  | File to stage, all unstaged files  |
+| git restore --staged |  Restore staged changes to working directory  |   \<file> .  |    File to unstage, all staged files   |
+|  git restore  |    Restore unstaged changes to last commit    |   \<file> .  |   File to restore, all unstaged files  |
+
 Locally changes in a git repository can be in one of this phases:
 
 ![Staging Diagram](images/staging-changes-local.png)
@@ -207,17 +213,19 @@ git add .
 
 It is possible to discard changes from either the staging area or the working directory.
 
-To unstage changes, that is to discard them from the staging area, we could <ins>SAFELY</ins> use:
+To unstage changes of tracked files, that is to discard them from the staging area, we could <ins>SAFELY</ins> use:
 
 ```bash
-git reset <file>
+git restore --staged <file>
 ```
 
-This simple use of `git reset` is very safe, however we may want to restore a file to an older version of the project (for now just the last commmit), which is slightly more dangerous.
+The command `git restore --staged` is safe (<ins>DON'T FORGET THE FLAG --staged</ins>) because it doesn't modify the working directory, it only removes the changes that were staged from the index (stage area).
 
-We can discard unstaged changes of a file (or an untracked file/folder) from the working directory, so is more in sync with last git checkpoint.
+However we may want to restore a file to an older version of the project (for now just the last commmit), which is slightly more dangerous.
 
-A simple way of achiving this is by using `git restore` for tracked files and `git clean` for untracked files and directories. These actions are <ins>DANGEROUS</ins>.
+We can discard unstaged changes of a file (or an untracked file/folder) from the working directory, so is more in sync with last Git checkpoint.
+
+A simple way of achiving this is by using `git restore` for tracked files and `git clean` for untracked files and directories. Since we won't be able to recover the unstaged changes these actions are <ins>DANGEROUS</ins>.
 
 Discard unstaged changes of tracked files:
 
@@ -225,9 +233,7 @@ Discard unstaged changes of tracked files:
 git restore <file>
 ```
 
-Note: We can use the flags `-S` and `-W` to allow us to discard both staged and worktree changes of tracked files. 
-
-(In fact `git restore -S <file>` will work the same as git reset)
+Note: We can use the flags `--staged` and `--worktree` to allow us to discard both staged and worktree changes of tracked files. 
 
 Discard untracked files:
 
@@ -240,7 +246,7 @@ Notes:
 - `-d` flag is required for untracked directories.
 - `-n` flag will show the result of a clean without doing it.
 
-In conclusion, a safe workflow we will do is `git reset` -> `git restore` / `git clean`, this way we unstage changes from the staging area safely and afterwards we have the option to discard.
+In conclusion, a safe workflow we will do is `git restore --staged` -> `git restore` / `git clean`, this way we unstage changes from the staging area safely and afterwards we have the option to discard.
 
 ## 6. Commit and commit messages
 
@@ -250,7 +256,7 @@ Once we have the changes we want in our staging area, we are ready for commiting
 git commit
 ```
 
-This command will pop up a window with our default `core.editor`, in our case VSCode. We will then have to:
+This command will open a Git file with our default `core.editor`, in our case VSCode. We will then have to:
 
 - Enter a commit message.
 - Save the commit file.
