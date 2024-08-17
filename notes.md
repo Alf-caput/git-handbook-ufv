@@ -181,7 +181,7 @@ Locally changes in a git repository can be in one of this phases:
 
 ![Staging Diagram](images/staging-changes-local.png)
 
-A git workflow in a nutshell: first they exist in our working directory, then we validate which ones we should keep and finally git creates a version checkpoint with the changes we have selected (in advance commit).
+Git commit changes workflow in a nutshell: first they exist in our working directory, then we validate which ones we should keep and finally git creates a version checkpoint with the changes we have selected (in advance commit).
 
 To move changes to the staging area (in advance stage changes) a simple option is:
 
@@ -213,23 +213,36 @@ To unstage changes, that is to discard them from the staging area, we could <ins
 git reset <file>
 ```
 
-We can also discard changes (staged or unstaged) of a file from the working directory, so the file is in sync with last git checkpoint, this action is <ins>DANGEROUS</ins>.
+This simple use of `git reset` is very safe, however we may want to restore a file to an older version of the project (for now just the last commmit), which is slightly more dangerous.
 
-Discard unstaged changes:
+We can discard unstaged changes of a file (or an untracked file/folder) from the working directory, so is more in sync with last git checkpoint.
+
+A simple way of achiving this is by using `git restore` for tracked files and `git clean` for untracked files and directories. These actions are <ins>DANGEROUS</ins>.
+
+Discard unstaged changes of tracked files:
 
 ```bash
 git restore <file>
 ```
 
-Discard staged changes:
+Note: We can use the flags `-S` and `-W` to allow us to discard both staged and worktree changes of tracked files. 
+
+(In fact `git restore -S <file>` will work the same as git reset)
+
+Discard untracked files:
 
 ```bash
-git restore --staged <file>
+git -f clean <file>
 ```
 
-Note: Is not dangerous if the file isn't still tracked by git, that is, it has never been commited.
+Notes: 
+- `-f` flag stands for force and is required by default.
+- `-d` flag is required for untracked directories.
+- `-n` flag will show the result of a clean without doing it.
 
-This and other undoing commands will be covered later on.
+In conclusion, a safe workflow we will do is `git reset` -> `git restore` / `git clean`, this way we unstage changes from the staging area safely and afterwards we have the option to discard.
+
+## 6. Commit and commit messages
 
 Once we have the changes we want in our staging area, we are ready for commiting.
 
@@ -237,7 +250,11 @@ Once we have the changes we want in our staging area, we are ready for commiting
 git commit
 ```
 
-This command will pop up a window with our default `core.editor`, which in our case is VSCode. We will then have to enter a commit message, save it and close the window. 
+This command will pop up a window with our default `core.editor`, in our case VSCode. We will then have to:
+
+- Enter a commit message.
+- Save the commit file.
+- Close the commit window. 
 
 Here are some <ins>IMPORTANT</ins> guidelines for a good commit message:
 
