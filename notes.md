@@ -186,7 +186,7 @@ git status -s
 
 Locally changes in a git repository can be in one of this phases:
 
-![Staging Diagram](images/staging-changes-local.png)
+![Staging Diagram](images/changes-diagram.png)
 
 Git commit changes workflow in a nutshell: first they exist in our working directory, then we validate which ones we should keep and finally git creates a version checkpoint with the changes we have selected (in advance commit).
 
