@@ -118,8 +118,8 @@ They are both required so Git can determine the author of a change in a project.
 |   Command  |               Description               |        Common Args        |               Args Descriptions              |
 |:----------:|:---------------------------------------:|:-------------------------:|:--------------------------------------------:|
 | git status |       Show the working tree status      |             -s            |         short-format (no branch info)        |
-|  git init  |         Create a Git repository         |         <location>        | If no location initializes current directory |
-|  git clone | Clone a repository into a new directory | <git-repo-url> <location> |  If no location clones to working directory  |
+|  git init  |         Create a Git repository         |         \<location>        | If no location initializes current directory |
+|  git clone | Clone a repository into a new directory | \<git-repo-url> \<location> |  If no location clones to working directory  |
 
 A git repository or git repo is a regular directory whose changes are being tracked by Git through the `.git` folder. 
 
@@ -177,11 +177,12 @@ git status -s
 
 ## 5. Adding and discarding changes
 
-|        Command       |                  Description                  | Common Args |         Args Descriptions         |
-|:--------------------:|:---------------------------------------------:|:-----------:|:---------------------------------:|
-|        git add       | Add file contents to the index (staging area) |   \<file> .  | File to stage, all unstaged files  |
-| git restore --staged |  Restore staged changes to working directory  |   \<file> .  |    File to unstage, all staged files   |
-|  git restore  |    Restore unstaged changes to last commit    |   \<file> .  |   File to restore, all unstaged files  |
+|        Command       |                       Description                       | Common Args |                 Args Description                |
+|:--------------------:|:-------------------------------------------------------:|:-----------:|:-----------------------------------------------:|
+|        git add       |      Add file contents to the index (staging area)      |             |                                                 |
+| git restore --staged | Remove staged changes keeping current working directory |             |                                                 |
+|       git reset      | Remove staged changes keeping current working directory |     HEAD    | Required when untracked is removed after staged |
+|      git restore     |         Restore unstaged changes to last commit         |             |                                                 |
 
 Locally changes in a git repository can be in one of this phases:
 
@@ -211,21 +212,41 @@ git add .
 
 (We can use either relative paths or absolute paths)
 
-It is possible to discard changes from either the staging area or the working directory.
+It is possible to discard changes from either the staging area (also called index) or the working directory.
 
-To unstage changes of tracked files, that is to discard them from the staging area, we could <ins>SAFELY</ins> use:
+To unstage changes, that is to discard them from the staging area, we could <ins>SAFELY</ins> use:
+
+```bash
+git reset <file>
+```
+
+Which is a shortened version of `git reset HEAD <file>`
+
+IMPORTANT: There is a caveat in the shortened approach (rarely happens), if we add a file to the index (staging area) and then remove it from the working directory Git will complain. In that case we are forced to use the standard version:
+
+```bash
+git reset HEAD <file>
+```
+
+The command `git reset HEAD` is safe because by default it <ins>doesn't modify the working directory</ins>, it only removes the changes that were staged from the index (stage area).
+
+A safe alternative (<ins>IF YOU DON'T FORGET `--staged` FLAG</ins>) is also to use:
 
 ```bash
 git restore --staged <file>
 ```
 
-The command `git restore --staged` is safe (<ins>DON'T FORGET THE FLAG --staged</ins>) because it doesn't modify the working directory, it only removes the changes that were staged from the index (stage area).
+Achieving the same as `git reset HEAD <file>`.
 
-However we may want to restore a file to an older version of the project (for now just the last commmit), which is slightly more dangerous.
+Recapping, we presented 2 safe ways of unstaging changes:
+- `git reset <file>` (which rarely requires `HEAD` argument)
+- `git restore --staged <file>`
+
+Next we may want to restore a file to an older version of the project (for now just the last commmit), which is slightly more dangerous.
 
 We can discard unstaged changes of a file (or an untracked file/folder) from the working directory, so is more in sync with last Git checkpoint.
 
-A simple way of achiving this is by using `git restore` for tracked files and `git clean` for untracked files and directories. Since we won't be able to recover the unstaged changes these actions are <ins>DANGEROUS</ins>.
+A simple way of accomplishing this is by using `git restore` for tracked files and `git clean` for untracked files and directories. Since we won't be able to recover the the state of the working directory these actions are <ins>DANGEROUS</ins>.
 
 Discard unstaged changes of tracked files:
 
@@ -246,11 +267,11 @@ Notes:
 - `-d` flag is required for untracked directories.
 - `-n` flag will show the result of a clean without doing it.
 
-In conclusion, a safe workflow we will do is `git restore --staged` -> `git restore` / `git clean`, this way we unstage changes from the staging area safely and afterwards we have the option to discard.
+In conclusion, a safe workflow we will do is `git reset` or `git restore --staged` -> `git restore` or `git clean`, this way we unstage changes from the staging area safely and afterwards we have the option to discard from the working directory.
 
 ## 6. Commit and commit messages
 
-|   Command  |            Description           | Common Args |     Args Descriptions     |
+|   Command  |            Description           | Common Args |     Args Description      |
 |:----------:|:--------------------------------:|:-----------:|:-------------------------:|
 | git commit | Record changes to the repository |    -a -m    | stage all, inline message |
 
@@ -299,3 +320,4 @@ or
 git commit -am "Remove multiprocessing"
 ```
 
+## 7. Commits logging
