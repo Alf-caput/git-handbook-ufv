@@ -121,7 +121,7 @@ They are both required so Git can determine the author of a change in a project.
 |  git init  |         Create a Git repository         |         \<location>        | If no location initializes current directory |
 |  git clone | Clone a repository into a new directory | \<git-repo-url> \<location> |  If no location clones to working directory  |
 
-A git repository or git repo is a regular directory whose changes are being tracked by Git through the `.git` folder. 
+A git repository is a regular directory whose changes are being tracked by Git through the `.git` folder. 
 
 Folders and filenames preceeded by `.` are usually hidden by default, to view them in bash we could use:
 
@@ -155,7 +155,7 @@ And for an existing remote repository (which will be covered later)
 git clone <remote-git-repo-url>
 ```
 
-Also possible to provide a location folder for the copied files from the remote repo ()
+Also possible to provide a location folder for the copied files from the remote repository.
 
 ```bash
 git clone <remote-git-repo-url> <location>
@@ -177,20 +177,47 @@ git status -s
 
 ## 5. Adding and discarding changes
 
-|        Command       |                       Description                       | Common Args |                 Args Description                |
-|:--------------------:|:-------------------------------------------------------:|:-----------:|:-----------------------------------------------:|
-|        git add       |      Add file contents to the index (staging area)      |             |                                                 |
-| git restore --staged | Remove staged changes keeping current working directory |             |                                                 |
-|       git reset      | Remove staged changes keeping current working directory |     HEAD    | Required when untracked is removed after staged |
-|      git restore     |         Restore unstaged changes to last commit         |             |                                                 |
+|         Command        |                                    Description                                    |
+|:----------------------:|:---------------------------------------------------------------------------------:|
+|         git add        |                   Add file contents to the index (stage changes)                  |
+|  git restore --staged  | Restore index to before the changes were staged (doesn't touch working directory) |
+|       git restore      |                    Restore working directory to match the index                   |
+| git restore --worktree |                    Restore working directory to match the index                   |
 
-Locally changes in a git repository can be in one of this phases:
+How to make Git track our changes in a nutshell:
+- First they exist in our working directory.
+- Then we validate which ones we should keep using a preview of them (the index).
+- Finally we tell git to create a version checkpoint with the changes we have selected (in advance commit).
 
-![Staging Diagram](images/changes-diagram.png)
+We won't deep dive into how changes are saved in each area, we will instead take a more practical approach. For now as a short explanation of each area: 
 
-Git commit changes workflow in a nutshell: first they exist in our working directory, then we validate which ones we should keep and finally git creates a version checkpoint with the changes we have selected (in advance commit).
+|              Area             |            Description            |
+|:-----------------------------:|:---------------------------------:|
+| Working directory / Work tree |    Where your local files live    |
+|       Index / Staging area      | Preview with a selection of changes |
+|         Commited files        |  Local repository tracked by Git  |
 
-To move changes to the staging area (in advance stage changes) a simple option is:
+To explain the upcoming examples, the following diagram will display the things that are in the index (a preview of what we want to end up) and what is in our working directory:
+
+![Default index-workingtree diagram](images/index-worktree.png)
+
+Note: Although we will refer to files in both areas indifferently (as the same), in reality Git doesn't copy our files but creates references (blue in the diagram).
+
+As we said, the entry point are changes in our working directory.
+
+Initially these are what Git calls unstaged changes, essentially are changes that are in our working directory but <ins> aren't in the preview </ins> (index / stage area). 
+
+They could be of 2 types:
+- Changes in files already known by Git
+- New files that aren't known to Git
+
+![index-workingtree diagram unstage](images/worktree-unstaged.png)
+
+Right now our preview is clean, as we left it, but at some point we would like Git to track this new unstaged changes. 
+
+The next step is called staging which is basically selecting which unstaged changes we want and preview them(could be some or all).
+
+Here are some examples of how to stage:
 
 ```bash
 git add <file.txt>
@@ -211,6 +238,13 @@ git add .
 ```
 
 (We can use either relative paths or absolute paths)
+
+For the previous image lets say we want to add to the stage area only the new file (not known to Git):
+
+
+![index-workingtree diagram staging](images/staging-file.png)
+
+Same principle applies for adding 
 
 It is possible to discard changes from either the staging area (also called index) or the working directory.
 
@@ -267,7 +301,7 @@ Notes:
 - `-d` flag is required for untracked directories.
 - `-n` flag will show the result of a clean without doing it.
 
-In conclusion, a safe workflow we will do is `git reset` or `git restore --staged` -> `git restore` or `git clean`, this way we unstage changes from the staging area safely and afterwards we have the option to discard from the working directory.
+In conclusion, a safe restore workflow we will do is `git restore --staged` -> `git restore` or `git clean`, this way we unstage changes from the staging area safely and afterwards we have the option to discard from the working directory.
 
 ## 6. Commit and commit messages
 
@@ -320,4 +354,4 @@ or
 git commit -am "Remove multiprocessing"
 ```
 
-## 7. Commits logging
+## 7. Commit loggings
