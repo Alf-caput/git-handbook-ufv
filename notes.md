@@ -211,13 +211,15 @@ They could be of 2 types:
 - Changes in files already known by Git
 - New files that aren't known to Git
 
+Simple example:
+
 ![index-worktree diagram unstage](images/worktree-unstaged.png)
 
 Right now our preview is clean, as we left it, but at some point we would like Git to track this new unstaged changes. 
 
-The next step is called staging which is basically selecting which unstaged changes we want and preview them(could be some or all).
+The next step is called staging which is basically selecting which unstaged changes we want and preview them (could be some or all).
 
-Here are some examples of how to stage:
+To stage a file / add it to the index:
 
 ```bash
 git add <file.txt>
@@ -239,13 +241,13 @@ git add .
 
 (We can use either relative paths or absolute paths)
 
-For the previous image lets say we want to add to the stage area only the new file (not known to Git):
+For the previous example lets say we want to add to the stage area only the new file (not known to Git):
 
 ![index-worktree diagram staging](images/staging-file.png)
 
 (Same principle applies for adding files that have changed)
 
-The preview is very flexible and allows us to see which files we want, however we may realize we didn't like some change we added to it.
+The preview is very flexible and allows us to see which files we want, it is also the closest point between the git repository and our working directory, however we may realize we didn't like some change we added to it.
 
 It is possible to discard changes from either the index /staging area or the working directory / work tree.
 
@@ -263,11 +265,11 @@ Note: If those changes are no longer in the working directory before we unstage,
 
 ![index-worktree diagram staging](images/unstaging-index.png)
 
-Next we may want to restore a file to an older version of the project (current state of the index), which is slightly more dangerous.
+Next we may want to restore a file to a previous version, being the closest point between the git repository and our working directory the <ins>current state of the index</ins>.
 
-We can discard unstaged changes of a file (or an untracked file/folder) from the working directory, so is more in sync with last Git checkpoint.
+We can discard unstaged changes of a file (or an untracked file/folder) from the working directory, to match the index hence becoming more in sync with last Git checkpoint.
 
-A simple way of accomplishing this is by using `git restore` (uses `--worktree` argument by default) for tracked files and `git clean` for untracked files and directories. Since we are modifying the state of the working directory these actions are <ins>DANGEROUS</ins>.
+A simple way of accomplishing this is by using `git restore` (uses `--worktree` argument by default) for tracked files and `git clean -f` for untracked files and directories. Since we are modifying the state of the working directory these actions are <ins>DANGEROUS</ins>.
 
 Discard unstaged changes of tracked files:
 
@@ -281,8 +283,6 @@ Or
 git restore --worktree <file>
 ```
 
-![index-worktree diagram discarding worktree](images/restore-index.png)
-
 Note: We can use the flags `--staged` and `--worktree` together to discard all changes either they are staged or unstaged. 
 
 Discard untracked files:
@@ -295,6 +295,14 @@ Notes:
 - `-f` flag stands for force and is required by default.
 - `-d` flag is required for untracked directories.
 - `-n` flag will show the result of a clean without doing it.
+
+Example of use:
+
+![index-worktree diagram discarding worktree](images/restore-clean-worktree.jpg)
+
+Note: `git restore --worktree` and `git clean -f` will not discard staged files, in fact if we use these commands our working directory will replicate the index. This makes sense since if we made changes after staging a file the index is the previous state of our working directory. 
+
+![index-worktree diagram discarding worktree](images/restoring-when-staged.jpg)
 
 In conclusion, a safe restore workflow we will do is `git restore --staged` -> `git restore` or `git clean`, this way we unstage changes from the staging area safely and afterwards we have the option to discard from the working directory.
 
