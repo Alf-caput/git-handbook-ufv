@@ -199,7 +199,7 @@ We won't deep dive into how changes are saved in each area, we will instead take
 
 To explain the upcoming examples, the following diagram will display the things that are in the index (a preview of what we want to end up) and what is in our working directory:
 
-![Default index-workingtree diagram](images/index-worktree.png)
+![Default index-worktree diagram](images/index-worktree.png)
 
 Note: Although we will refer to files in both areas indifferently (as the same), in reality Git doesn't copy our files but creates references (blue in the diagram).
 
@@ -211,7 +211,7 @@ They could be of 2 types:
 - Changes in files already known by Git
 - New files that aren't known to Git
 
-![index-workingtree diagram unstage](images/worktree-unstaged.png)
+![index-worktree diagram unstage](images/worktree-unstaged.png)
 
 Right now our preview is clean, as we left it, but at some point we would like Git to track this new unstaged changes. 
 
@@ -241,46 +241,33 @@ git add .
 
 For the previous image lets say we want to add to the stage area only the new file (not known to Git):
 
+![index-worktree diagram staging](images/staging-file.png)
 
-![index-workingtree diagram staging](images/staging-file.png)
+(Same principle applies for adding files that have changed)
 
-Same principle applies for adding 
+The preview is very flexible and allows us to see which files we want, however we may realize we didn't like some change we added to it.
 
-It is possible to discard changes from either the staging area (also called index) or the working directory.
+It is possible to discard changes from either the index /staging area or the working directory / work tree.
 
 To unstage changes, that is to discard them from the staging area, we could <ins>SAFELY</ins> use:
-
-```bash
-git reset <file>
-```
-
-Which is a shortened version of `git reset HEAD <file>`
-
-IMPORTANT: There is a caveat in the shortened approach (rarely happens), if we add a file to the index (staging area) and then remove it from the working directory Git will complain. In that case we are forced to use the standard version:
-
-```bash
-git reset HEAD <file>
-```
-
-The command `git reset HEAD` is safe because by default it <ins>doesn't modify the working directory</ins>, it only removes the changes that were staged from the index (stage area).
-
-A safe alternative (<ins>IF YOU DON'T FORGET `--staged` FLAG</ins>) is also to use:
 
 ```bash
 git restore --staged <file>
 ```
 
-Achieving the same as `git reset HEAD <file>`.
+The command `git restore --staged` is safe because it <ins>doesn't modify the working directory</ins>, it only forgets the changes that were staged into the index (stage area).
 
-Recapping, we presented 2 safe ways of unstaging changes:
-- `git reset <file>` (which rarely requires `HEAD` argument)
-- `git restore --staged <file>`
+![index-worktree diagram unstaging](images/restore-index.png)
 
-Next we may want to restore a file to an older version of the project (for now just the last commmit), which is slightly more dangerous.
+Note: If those changes are no longer in the working directory before we unstage, `git restore --staged` will not recover them, the command only removes/forgets what was added to the staging area.
+
+![index-worktree diagram staging](images/unstaging-index.png)
+
+Next we may want to restore a file to an older version of the project (current state of the index), which is slightly more dangerous.
 
 We can discard unstaged changes of a file (or an untracked file/folder) from the working directory, so is more in sync with last Git checkpoint.
 
-A simple way of accomplishing this is by using `git restore` for tracked files and `git clean` for untracked files and directories. Since we won't be able to recover the the state of the working directory these actions are <ins>DANGEROUS</ins>.
+A simple way of accomplishing this is by using `git restore` (uses `--worktree` argument by default) for tracked files and `git clean` for untracked files and directories. Since we are modifying the state of the working directory these actions are <ins>DANGEROUS</ins>.
 
 Discard unstaged changes of tracked files:
 
@@ -288,7 +275,15 @@ Discard unstaged changes of tracked files:
 git restore <file>
 ```
 
-Note: We can use the flags `--staged` and `--worktree` to allow us to discard both staged and worktree changes of tracked files. 
+Or
+
+```bash
+git restore --worktree <file>
+```
+
+![index-worktree diagram discarding worktree](images/restore-index.png)
+
+Note: We can use the flags `--staged` and `--worktree` together to discard all changes either they are staged or unstaged. 
 
 Discard untracked files:
 
