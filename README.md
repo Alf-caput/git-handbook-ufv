@@ -1,1 +1,360 @@
-# git-notes-summary
+# Git notes
+
+## Introduction
+
+This document intends to show a simple but consistent workflow using Git, it will not focus on how Git works under the hood, but on how to use it efficiently.
+
+Git is a free and open source distributed version control system (VCS), that tracks changes made to a file or set of files over time, allowing developers to manage different versions of their codebase efficiently.
+
+## 1. Installation (Windows)
+
+For the installation we can leave most of the configurations as they are by default.
+
+However there are 2 options that are highly recommended: 
+
+- **Default editor used by Git**
+
+    By default the editor that Git uses for commit messages, merge commits and so on is VI (Visual Improved).
+    This editor although is light weight and efficient can be daunting at first.
+    For that reason using a more friendly editor such as VSCode (VSCode installation required) is suggested.
+
+    ![Default editor used by Git](images/set-default-editor.PNG)
+
+    Notes: 
+
+    In case you set Vi as the default editor and by accident you happen to enter the editor, to exit press `Esc` to enter normal mode then `:q!` to exit the file without saving changes.
+
+    It is possible to change the default editor used by Git to VSCode (aliased as `code` with `--wait` flag) with the following command:
+
+    ```bash
+    git config --global core.editor "code --wait"
+    ```
+    You can view and edit the global config at `~/.gitconfig` (on Windows `C:\Users\username\.gitconfig`).
+    
+    (In case you set an invalid editor the command may not work and you will have to manually open and edit `.gitconfig`)
+
+    To see the current default editor either view `.gitconfig` or use:
+
+    ```bash
+    git config --global core.editor
+    ```
+
+<!-- 
+    It is also possible to set or view the default editor only for the local repo by using the `--local` flag
+
+    For the local repo the `.git` folder contains the `config` file. -->
+
+    
+- **Default branch name used by Git**
+
+    In Git for the first commit and once we get to Github for the display, there is a special branch that is set as default for the repository. 
+    
+    Historically the name of this branch has been **master**, however this is planned to be changed and is quite extended to use **main** as default branch name, which is what Github uses. 
+
+    Although is not impactfull for our repositories history, since **master** is an explicit name, once we get to Github we will see it suggests us to rename our **master** branch to **main**, which isn't complex and we might rename only once per repository so is not a big deal.
+
+    This suggestion is for those who pretend to create a lot of online repositories, don't like **master** as default name or know for sure their workflows will use **main** as main branch for multiple local projects.
+
+    It is possible to set the default branch name as **main** during installation:
+    
+    ![Default branch name used by Git](images/set-default-branch-name.PNG)
+
+    Can also be achieved by using:
+
+    ```bash
+    git config --global init.defaultBranch main
+    ```
+
+    To see the current default branch either view `.gitconfig` or use:
+
+    ```bash
+    git config --global init.defaultBranch
+    ```
+
+    (If you are letting Git decide, the command will fail and won't appear in `.gitconfig`)
+
+Once the instalation is finished you can open a new terminal instance and pass the following command to check it was succesfully installed:
+
+```bash
+git --version
+```
+
+If git was installed and recognized the output of the command will be its version.
+
+## 2. Bash commands
+
+Some basic bash commands knowledge is suggested but feel free to skip this if already in knowing or if you want to use other CLI or an IDE.
+
+| Command |       Description       | Common Args |         Args Descriptions        |
+|:-------:|:-----------------------:|:-----------:|:--------------------------------:|
+|   pwd   | print working directory |             |                                  |
+|    ls   |      list directory     |      -a     | view all (hidden files included) |
+|   echo  |     display message     |     > >>    | overwrite, append (rhs with lhs) |
+|    cd   |     change directory    |    . .. -   |     current, parent, previous    |
+|  touch  |       create file       |             |                                  |
+|  mkdir  |     create directory    |             |                                  |
+|   cat   |    print all contents   |             |                                  |
+|    cp   |           copy          |      -r     |      recursive (directories)     |
+|    mv   |      rename / move      |      -r     |      recursive (directories)     |
+|    rm   |          remove         |    -r -f    |  recursive (directories), force  |
+|         |                         |  --version  |              version             |
+
+## 3. Initial configuration
+
+Before we start with Git we have to set username and email. Either edit `.gitconfig` or use:
+
+```bash
+git config --global user.name "John Doe"
+```
+
+```bash
+git config --global user.email "johndoe@email.com"
+```
+
+They are both required so Git can determine the author of a change in a project.
+
+## 4. Initializing and status
+
+|   Command  |               Description               |        Common Args        |               Args Descriptions              |
+|:----------:|:---------------------------------------:|:-------------------------:|:--------------------------------------------:|
+| git status |       Show the working tree status      |             -s            |         short-format (no branch info)        |
+|  git init  |         Create a Git repository         |         \<location>        | If no location initializes current directory |
+|  git clone | Clone a repository into a new directory | \<git-repo-url> \<location> |  If no location clones to working directory  |
+
+A git repository is a regular directory whose changes are being tracked by Git through the `.git` folder. 
+
+Folders and filenames preceeded by `.` are usually hidden by default, to view them in bash we could use:
+
+```bash
+ls -a
+```
+
+Git itself provides a command to output the tracking status of the current directory:
+
+```bash
+git status
+```
+
+This command will list all files and changes that aren't yet tracked by Git, and in case isn't a Git repository will output `fatal: not a git repository (or any of the parent directories): .git`.
+
+To initialize a git repository locally we can use:
+
+```bash
+git init
+```
+
+We are able to provide a location at which will be initialized:
+
+```bash
+git init <location>
+```
+
+And for an existing remote repository (which will be covered later)
+
+```bash
+git clone <remote-git-repo-url>
+```
+
+Also possible to provide a location folder for the copied files from the remote repository.
+
+```bash
+git clone <remote-git-repo-url> <location>
+```
+
+Once we've done either one of those, using
+
+```bash
+git status
+```
+
+will tell us in which branch we are and some extra information related to changes.
+
+Is worth noting, the flag `-s` which stands for short will return a short format output
+
+```bash
+git status -s
+```
+
+## 5. Adding and discarding changes
+
+|         Command        |                                    Description                                    |
+|:----------------------:|:---------------------------------------------------------------------------------:|
+|         git add        |                   Add file contents to the index (stage changes)                  |
+|  git restore --staged  | Restore index to before the changes were staged (doesn't touch working directory) |
+|       git restore      |                    Restore working directory to match the index                   |
+| git restore --worktree |                    Restore working directory to match the index                   |
+
+How to make Git track our changes in a nutshell:
+- First they exist in our working directory.
+- Then we validate which ones we should keep using a preview of them (the index).
+- Finally we tell git to create a version checkpoint with the changes we have selected (in advance commit).
+
+We won't deep dive into how changes are saved in each area, we will instead take a more practical approach. For now as a short explanation of each area: 
+
+|              Area             |            Description            |
+|:-----------------------------:|:---------------------------------:|
+| Working directory / Work tree |    Where your local files live    |
+|       Index / Staging area      | Preview with a selection of changes |
+|         Commited files        |  Local repository tracked by Git  |
+
+To explain the upcoming examples, the following diagram will display the things that are in the index (a preview of what we want to end up) and what is in our working directory:
+
+![Default index-worktree diagram](images/index-worktree.png)
+
+Note: Although we will refer to files in both areas indifferently (as the same), in reality Git doesn't copy our files but creates references (blue in the diagram).
+
+As we said, the entry point are changes in our working directory.
+
+Initially these are what Git calls unstaged changes, essentially are changes that are in our working directory but <ins> aren't in the preview </ins> (index / stage area). 
+
+They could be of 2 types:
+- Changes in files already known by Git
+- New files that aren't known to Git
+
+Simple example:
+
+![index-worktree diagram unstage](images/worktree-unstaged.png)
+
+Right now our preview is clean, as we left it, but at some point we would like Git to track this new unstaged changes. 
+
+The next step is called staging which is basically selecting which unstaged changes we want and preview them (could be some or all).
+
+To stage a file / add it to the index:
+
+```bash
+git add <file.txt>
+```
+
+Note: To check which changes have been staged we can use `git status`
+
+It is possible to stage multiple files at the same time separating them by spaces.
+
+```bash
+git add <file1> <file2> <file3>
+```
+
+To stage all changes in the current directory we could do it by using the relative path with `.`
+
+```bash
+git add .
+```
+
+(We can use either relative paths or absolute paths)
+
+For the previous example lets say we want to add to the stage area only the new file (not known to Git):
+
+![index-worktree diagram staging](images/staging-file.png)
+
+(Same principle applies for adding files that have changed)
+
+The preview is very flexible and allows us to see which files we want, it is also the closest point between the git repository and our working directory, however we may realize we didn't like some change we added to it.
+
+It is possible to discard changes from either the index /staging area or the working directory / work tree.
+
+To unstage changes, that is to discard them from the staging area, we could <ins>SAFELY</ins> use:
+
+```bash
+git restore --staged <file>
+```
+
+The command `git restore --staged` is safe because it <ins>doesn't modify the working directory</ins>, it only forgets the changes that were staged into the index (stage area).
+
+![index-worktree diagram unstaging](images/restore-index.png)
+
+Note: If those changes are no longer in the working directory before we unstage, `git restore --staged` will not recover them, the command only removes/forgets what was added to the staging area.
+
+![index-worktree diagram staging](images/unstaging-index.png)
+
+Next we may want to restore a file to a previous version, being the closest point between the git repository and our working directory the <ins>current state of the index</ins>.
+
+We can discard unstaged changes of a file (or an untracked file/folder) from the working directory, to match the index hence becoming more in sync with last Git checkpoint.
+
+A simple way of accomplishing this is by using `git restore` (uses `--worktree` argument by default) for tracked files and `git clean -f` for untracked files and directories. Since we are modifying the state of the working directory these actions are <ins>DANGEROUS</ins>.
+
+Discard unstaged changes of tracked files:
+
+```bash
+git restore <file>
+```
+
+Or
+
+```bash
+git restore --worktree <file>
+```
+
+Note: We can use the flags `--staged` and `--worktree` together to discard all changes either they are staged or unstaged. 
+
+Discard untracked files:
+
+```bash
+git -f clean <file>
+```
+
+Notes: 
+- `-f` flag stands for force and is required by default.
+- `-d` flag is required for untracked directories.
+- `-n` flag will show the result of a clean without doing it.
+
+Example of use:
+
+![index-worktree diagram discarding worktree](images/restore-clean-worktree.jpg)
+
+Note: `git restore --worktree` and `git clean -f` will not discard staged files, in fact if we use these commands our working directory will replicate the index. This makes sense since if we made changes after staging a file the index is the previous state of our working directory. 
+
+![index-worktree diagram discarding worktree](images/restoring-when-staged.jpg)
+
+In conclusion, a safe restore workflow we will do is `git restore --staged` -> `git restore` or `git clean`, this way we unstage changes from the staging area safely and afterwards we have the option to discard from the working directory.
+
+## 6. Commit and commit messages
+
+|   Command  |            Description           | Common Args |     Args Description      |
+|:----------:|:--------------------------------:|:-----------:|:-------------------------:|
+| git commit | Record changes to the repository |    -a -m    | stage all, inline message |
+
+Once we have the changes we want in our staging area, we are ready for commiting.
+
+```bash
+git commit
+```
+
+This command will open a Git file with our default `core.editor`, in our case VSCode. We will then have to:
+
+- Enter a commit message.
+- Save the commit file.
+- Close the commit window. 
+
+Here are some <ins>IMPORTANT</ins> guidelines for a good commit message:
+
+- Write your commit message subject in the imperative: "Fix bug" and not "Fixed bug" or "Fixes bug."
+- Do not end the subject line with a period
+- Separate subject from body with a blank line
+- Capitalize the subject line and each paragraph
+- Wrap lines at 72 characters
+- Use the body to explain what and why you have done something
+
+We can also commit in one line without having to enter our `core.editor` using the `-m` flag and passing our message between quotes:
+
+```bash
+git commit -m "Add foo.txt"
+```
+
+There is also the `-a` flag that stages all changes in the working directory before commiting, this way we can save ourselves from using `git add`:
+
+```bash
+git commit -a
+```
+
+In combination with `-m`:
+
+```bash
+git commit -a -m "Remove multiprocessing"
+```
+
+or
+
+```bash
+git commit -am "Remove multiprocessing"
+```
+
+## 7. Commit loggings
