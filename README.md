@@ -38,12 +38,6 @@ However there are 2 options that are highly recommended:
     ```bash
     git config --global core.editor
     ```
-
-<!-- 
-    It is also possible to set or view the default editor only for the local repo by using the `--local` flag
-
-    For the local repo the `.git` folder contains the `config` file. -->
-
     
 - **Default branch name used by Git**
 
@@ -51,7 +45,7 @@ However there are 2 options that are highly recommended:
     
     Historically the name of this branch has been **master**, however this is planned to be changed and is quite extended to use **main** as default branch name, which is what Github uses. 
 
-    Although is not impactfull for our repositories history, since **master** is an explicit name, once we get to Github we will see it suggests us to rename our **master** branch to **main**, which isn't complex and we might rename only once per repository so is not a big deal.
+    Although is not impactfull for our repositories history, since **master** is already an explicit name, once we get to Github we will see it suggests us to rename our **master** branch to **main**, which isn't complex and we might rename only once per repository so is not a big deal.
 
     This suggestion is for those who pretend to create a lot of online repositories, don't like **master** as default name or know for sure their workflows will use **main** as main branch for multiple local projects.
 
@@ -222,7 +216,7 @@ The next step is called staging which is basically selecting which unstaged chan
 To stage a file / add it to the index:
 
 ```bash
-git add <file.txt>
+git add file.txt
 ```
 
 Note: To check which changes have been staged we can use `git status`
@@ -230,7 +224,7 @@ Note: To check which changes have been staged we can use `git status`
 It is possible to stage multiple files at the same time separating them by spaces.
 
 ```bash
-git add <file1> <file2> <file3>
+git add file1 file2 file3
 ```
 
 To stage all changes in the current directory we could do it by using the relative path with `.`
@@ -254,7 +248,7 @@ It is possible to discard changes from either the index /staging area or the wor
 To unstage changes, that is to discard them from the staging area, we could <ins>SAFELY</ins> use:
 
 ```bash
-git restore --staged <file>
+git restore --staged file.txt
 ```
 
 The command `git restore --staged` is safe because it <ins>doesn't modify the working directory</ins>, it only forgets the changes that were staged into the index (stage area).
