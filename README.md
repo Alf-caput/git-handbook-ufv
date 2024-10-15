@@ -259,22 +259,22 @@ Note: If those changes are no longer in the working directory before we unstage,
 
 ![index-worktree diagram staging](images/unstaging-index.png)
 
-Next we may want to restore a file to a previous version, being the closest point between the git repository and our working directory the <ins>current state of the index</ins>.
+Another thing we may need is to restore a file to the <ins>current state of the index</ins> (what has been staged with `git add`).
 
-We can discard unstaged changes of a file (or an untracked file/folder) from the working directory, to match the index hence becoming more in sync with last Git checkpoint.
+We can discard unstaged changes of a file (or an untracked file/folder) from the working directory, to match the index.
 
 A simple way of accomplishing this is by using `git restore` (uses `--worktree` argument by default) for tracked files and `git clean -f` for untracked files and directories. Since we are modifying the state of the working directory these actions are <ins>DANGEROUS</ins>.
 
 Discard unstaged changes of tracked files:
 
 ```bash
-git restore <file>
+git restore file.txt
 ```
 
 Or
 
 ```bash
-git restore --worktree <file>
+git restore --worktree file.txt
 ```
 
 Note: We can use the flags `--staged` and `--worktree` together to discard all changes either they are staged or unstaged. 
