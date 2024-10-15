@@ -16,9 +16,10 @@
     - Work tree.
     - Staging area.
 
-4. Commiting
+4. Commiting and viewing changes
     - Guidelines.
     - IDE.
+    - git diff.
 
 5. .gitignore file
     - Ignoring files.
