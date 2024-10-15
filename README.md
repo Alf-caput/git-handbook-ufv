@@ -296,9 +296,11 @@ Example of use:
 
 Note: `git restore --worktree` and `git clean -f` will not discard staged files, in fact if we use these commands our working directory will replicate the index. This makes sense since if we made changes after staging a file the index is the previous state of our working directory. 
 
+Example starting with staged files:
+
 ![index-worktree diagram discarding worktree](images/restoring-when-staged.jpg)
 
-In conclusion, a safe restore workflow we will do is `git restore --staged` -> `git restore` or `git clean`, this way we unstage changes from the staging area safely and afterwards we have the option to discard from the working directory.
+In conclusion, the restore workflow we will be `git restore --staged` -> `git restore` or `git clean`, this way we first unstage changes from the staging area without modifying the working directory and afterwards we have the option to discard from the working directory.
 
 ## 6. Commit and commit messages
 
