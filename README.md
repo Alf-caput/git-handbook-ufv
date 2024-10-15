@@ -371,4 +371,18 @@ We can specify the flag `--oneline` for a shorter output at the cost of losing t
 git log --oneline
 ```
 
+Note: If the ouput of the command doesn't fit in the command window, git will enable a navigation mode that uses j to move down and k to move up.To exit this navigation mode press q. We can tell git to not enter this navigation mode if needed, by adding the `--no-pager` flag before `log` keyword.
+
+```bash
+git --no-pager log --oneline
+```
+
+## 8. Displaying changes
+
+When working in a project, we may want to view what has changed between versions, git provides us a way to achieve this. The git diff command allows us to view changes between commits, the index, the worktree, ...
+
+
+```bash
+git log --oneline
+```
 
