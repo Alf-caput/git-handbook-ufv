@@ -354,3 +354,7 @@ git commit -am "Remove multiprocessing"
 ```
 
 ## 7. Commit loggings
+|       Command      |                      Description                     | Common Args | Args Descriptions |
+|:------------------:|:----------------------------------------------------:|:-----------:|:-----------------:|
+|       git log      |                   Show commit logs                   |  --oneline  |   oneline-format  |
+| git --no-pager log | Show commit logs (without j/k navigation and q exit) |  --oneline  |   oneline-format  |
