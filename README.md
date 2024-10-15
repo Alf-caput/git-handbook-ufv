@@ -382,6 +382,6 @@ When working in a project, we may want to view what has changed between versions
 
 
 ```bash
-git log --oneline
+git diff 
 ```
 
