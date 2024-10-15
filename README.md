@@ -304,10 +304,9 @@ In conclusion, the restore workflow we will be `git restore --staged` -> `git re
 
 ## 6. Commit and commit messages
 
-|   Command  |            Description           | Common Args |     Args Description      |
-|:----------:|:--------------------------------:|:-----------:|:-------------------------:|
-| git commit | Record changes to the repository |    -a -m    | stage all, inline message |
-
+|   Command  |            Description           | Common Args |             Args Description            |
+|:----------:|:--------------------------------:|:-----------:|:---------------------------------------:|
+| git commit | Record changes to the repository |    -a -m    | stage all TRACKED files, inline message |
 Once we have the changes we want in our staging area, we are ready for commiting.
 
 ```bash
@@ -335,7 +334,7 @@ We can also commit in one line without having to enter our `core.editor` using t
 git commit -m "Add foo.txt"
 ```
 
-There is also the `-a` flag that stages all changes in the working directory before commiting, this way we can save ourselves from using `git add`:
+There is also the `-a` flag that stages all changes <ins> of already tracked files </ins> in the working directory before commiting, this way we can save ourselves from using `git add`:
 
 ```bash
 git commit -a
