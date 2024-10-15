@@ -358,3 +358,17 @@ git commit -am "Remove multiprocessing"
 |:------------------:|:----------------------------------------------------:|:-----------:|:-----------------:|
 |       git log      |                   Show commit logs                   |  --oneline  |   oneline-format  |
 | git --no-pager log | Show commit logs (without j/k navigation and q exit) |  --oneline  |   oneline-format  |
+
+The git log command provides a way to see the commit history, however it may not be very intuitive compared to other GUI options.
+
+```bash
+git log
+```
+
+We can specify the flag `--oneline` for a shorter output at the cost of losing the body of the commit message.
+
+```bash
+git log --oneline
+```
+
+
