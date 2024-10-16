@@ -352,7 +352,7 @@ or
 git commit -am "Remove multiprocessing"
 ```
 
-## 7. Commit loggings
+## 7. Commit loggings and HEAD
 |       Command      |                      Description                     | Common Args | Args Descriptions |
 |:------------------:|:----------------------------------------------------:|:-----------:|:-----------------:|
 |       git log      |                   Show commit logs                   |  --oneline  |   oneline-format  |
@@ -376,12 +376,19 @@ Note: If the ouput of the command doesn't fit in the command window, git will en
 git --no-pager log --oneline
 ```
 
+Notes:
+
+As was mentioned earlier, Git allows us to travel in time between changes and work in parallel timelines, the checkpoint in time we are currently pointing to is called `HEAD`, the output of `git log` will display the commit message, its id, ... But also worth noticing timeline we are working on (`branch`) and in which moment of that timeline (currently pointed commit / `HEAD`).  
+
 ## 8. Displaying changes
 
-When working in a project, we may want to view what has changed between versions, git provides us a way to achieve this. The git diff command allows us to view changes between commits, the index, the worktree, ...
+A key feature of git is that it allows us to view what has changed between versions. The git diff command allows us to view changes between commits, the index, the worktree, ...
 
+Without arguments `git log` will display changes between the working directory and the index.
 
 ```bash
 git diff 
 ```
+
+
 
