@@ -79,19 +79,19 @@ If git was installed and recognized the output of the command will be its versio
 
 Some basic bash commands knowledge is suggested but feel free to skip this if already in knowing or if you want to use other CLI or an IDE.
 
-| Command |       Description       | Common Args |         Args Descriptions        |
-|:-------:|:-----------------------:|:-----------:|:--------------------------------:|
-|   pwd   | print working directory |             |                                  |
-|    ls   |      list directory     |      -a     | view all (hidden files included) |
-|   echo  |     display message     |     > >>    | overwrite, append (rhs with lhs) |
-|    cd   |     change directory    |    . .. -   |     current, parent, previous    |
-|  touch  |       create file       |             |                                  |
-|  mkdir  |     create directory    |             |                                  |
-|   cat   |    print all contents   |             |                                  |
-|    cp   |           copy          |      -r     |      recursive (directories)     |
-|    mv   |      rename / move      |      -r     |      recursive (directories)     |
-|    rm   |          remove         |    -r -f    |  recursive (directories), force  |
-|         |                         |  --version  |              version             |
+| Command |       Description       | Common Args |                      Args Descriptions                      |
+|:-------:|:-----------------------:|:-----------:|:-----------------------------------------------------------:|
+|   pwd   | print working directory |             |                                                             |
+|    ls   |      list directory     |      -a     |               view all (hidden files included)              |
+|   echo  |     display message     |   -e > >>   | enable interpretation "\", overwrite, append (rhs with lhs) |
+|  printf |      display string     |             |                                                             |
+|    cd   |     change directory    |    . .. -   |                  current, parent, previous                  |
+|  touch  |       create file       |             |                                                             |
+|  mkdir  |     create directory    |             |                                                             |
+|   cat   |    print all contents   |             |                                                             |
+|    cp   |           copy          |      -r     |                   recursive (directories)                   |
+|    mv   |      rename / move      |      -r     |                   recursive (directories)                   |
+|    rm   |          remove         |    -r -f    |                recursive (directories), force               |
 
 ## 3. Initial configuration
 
@@ -390,5 +390,5 @@ Without arguments `git log` will display changes between the working directory a
 git diff 
 ```
 
-
+Remainder
 
