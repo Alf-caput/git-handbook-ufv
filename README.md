@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document intends to show a simple but consistent workflow using Git, it will not focus on how Git works under the hood, but on how to use it efficiently.
+This document intends to show a simple but consistent workflow using Git, it will not focus on how Git works under the hood, but on how to use it effectively.
 
 Git is a free and open source distributed version control system (VCS), that tracks changes made to a file or set of files over time, allowing developers to manage different versions of their codebase efficiently.
 
@@ -300,14 +300,15 @@ Example starting with staged files:
 
 ![index-worktree diagram discarding worktree](images/restoring-when-staged.jpg)
 
-In conclusion, the restore workflow we will be `git restore --staged` -> `git restore` or `git clean`, this way we first unstage changes from the staging area without modifying the working directory and afterwards we have the option to discard from the working directory.
+In conclusion, the restore workflow will be `git restore --staged` -> `git restore` or `git clean`, this way we first unstage changes from the staging area without modifying the working directory and afterwards we have the option to discard from the working directory.
 
 ## 6. Commit and commit messages
 
 |   Command  |            Description           | Common Args |             Args Description            |
 |:----------:|:--------------------------------:|:-----------:|:---------------------------------------:|
 | git commit | Record changes to the repository |    -a -m    | stage all TRACKED files, inline message |
-Once we have the changes we want in our staging area, we are ready for commiting.
+
+Once we have the changes we want in our staging area, we are ready for commiting (generating a checkpoint).
 
 ```bash
 git commit
@@ -334,7 +335,7 @@ We can also commit in one line without having to enter our `core.editor` using t
 git commit -m "Add foo.txt"
 ```
 
-There is also the `-a` flag that stages all changes <ins> of already tracked files </ins> in the working directory before commiting, this way we can save ourselves from using `git add`:
+There is also the `-a` flag that stages all changes <ins> of already tracked files</ins> in the working directory before commiting, this way we can save ourselves from using `git add`:
 
 ```bash
 git commit -a
@@ -370,7 +371,7 @@ We can specify the flag `--oneline` for a shorter output at the cost of losing t
 git log --oneline
 ```
 
-Note: If the ouput of the command doesn't fit in the command window, git will enable a navigation mode that uses j to move down and k to move up.To exit this navigation mode press q. We can tell git to not enter this navigation mode if needed, by adding the `--no-pager` flag before `log` keyword.
+Note: If the ouput of the command doesn't fit in the command window, git will enable a navigation mode that uses `j` to move down and `k` to move up.To exit this navigation mode press `q`. We can tell git to not enter this navigation mode if needed (it will print everything directly), by adding the `--no-pager` flag before `log` keyword.
 
 ```bash
 git --no-pager log --oneline
@@ -378,7 +379,7 @@ git --no-pager log --oneline
 
 Notes:
 
-As was mentioned earlier, Git allows us to travel in time between changes and work in parallel timelines, the checkpoint in time we are currently pointing to is called `HEAD`, the output of `git log` will display the commit message, its id, ... But also worth noticing timeline we are working on (`branch`) and in which moment of that timeline (currently pointed commit / `HEAD`).  
+As was mentioned earlier, Git allows us to travel in time between changes and work in parallel timelines called branches.
 
 ## 8. Displaying changes
 
@@ -389,6 +390,3 @@ Without arguments `git log` will display changes between the working directory a
 ```bash
 git diff 
 ```
-
-Remainder
-
