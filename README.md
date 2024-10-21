@@ -379,16 +379,37 @@ git --no-pager log --oneline
 
 Notes:
 
-As was mentioned earlier, Git allows us to travel in time between changes and work in parallel timelines called branches. In this context `HEAD` is a reference of whatever we are pointing to, it will follow us as we create new commits or switch from timeline (branch).
+As was mentioned earlier, Git allows us to travel in time between changes and work in parallel timelines called branches. In this context `HEAD` is a reference of whatever we are pointing to and it will follow us as we create new commits or switch from timeline (`branch`).
 
-If the `HEAD` isn't pointing to the tip of a branch is called `detached HEAD` this happens when we point to a specific commit that isn't at the tip of the branch.
+If the `HEAD` isn't pointing to the tip of a `branch` is called `detached HEAD` this happens when we point to a specific commit that isn't at the tip of the branch.
 
 ## 8. Displaying changes
 
-A key feature of git is that it allows us to view what has changed between versions. The git diff command allows us to view changes between commits, the index, the worktree, ...
+A key feature of git is that it allows us to view what has changed between versions. The `git diff` command allows us to view changes between commits, the index, the worktree, ...
 
-Without arguments `git log` will display changes between the working directory and the index.
+Without arguments `git diff` will display changes between the working directory and the index.
 
 ```bash
 git diff 
+```
+
+Note: The command accepts paths to only show certain files. 
+
+```bash
+git diff file2.txt some/path/to/file2.txt
+```
+
+With the flag `--staged` changes between the index and the `HEAD` will be displayed. 
+
+```bash
+git diff --staged
+```
+
+Remainder: `HEAD` is reference to a commit we are pointing to. Tipically it will be the tip of the `branch` and will follow us automatically as we commit or switch branches but it can also be a certain commit we have checked out in which case is called `detached HEAD`
+
+To display changes between 2 commits:
+
+
+```bash
+git diff --staged
 ```
