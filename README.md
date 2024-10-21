@@ -379,7 +379,9 @@ git --no-pager log --oneline
 
 Notes:
 
-As was mentioned earlier, Git allows us to travel in time between changes and work in parallel timelines called branches.
+As was mentioned earlier, Git allows us to travel in time between changes and work in parallel timelines called branches. In this context `HEAD` is a reference of whatever we are pointing to, it will follow us as we create new commits or switch from timeline (branch).
+
+If the `HEAD` isn't pointing to the tip of a branch is called `detached HEAD` this happens when we point to a specific commit that isn't at the tip of the branch.
 
 ## 8. Displaying changes
 
