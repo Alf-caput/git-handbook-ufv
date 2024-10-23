@@ -354,10 +354,10 @@ git commit -am "Remove multiprocessing"
 ```
 
 ## 7. Commit loggings and HEAD
-|       Command      |                      Description                     | Common Args | Args Descriptions |
-|:------------------:|:----------------------------------------------------:|:-----------:|:-----------------:|
-|       git log      |                   Show commit logs                   |  --oneline  |   oneline-format  |
-| git --no-pager log | Show commit logs (without j/k navigation and q exit) |  --oneline  |   oneline-format  |
+|       Command      |                      Description                     |         Common Args         |                      Args Descriptions                      |
+|:------------------:|:----------------------------------------------------:|:---------------------------:|:-----------------------------------------------------------:|
+|       git log      |                   Show commit logs                   | --oneline \| -n \| --author | oneline-format, selection of last commits, filter by author |
+| git --no-pager log | Show commit logs (without j/k navigation and q exit) | --oneline \| -n \| --author | oneline-format, selection of last commits, filter by author |
 
 The git log command provides a way to see the commit history, however it may not be very intuitive compared to other GUI options.
 
@@ -369,6 +369,20 @@ We can specify the flag `--oneline` for a shorter output at the cost of losing t
 
 ```bash
 git log --oneline
+```
+
+There are multiple other ways to format and filter the output, to name a couple useful:
+
+Flag `-n` allows us to view the last **n** commits (where **n** is an integer). Example last 2 commits (HEAD and HEAD~1):
+
+```bash
+git log --oneline -n 2
+```
+
+Flag `--author` filters by commit author. Might be useful when working with multiple contributors. Example Alf-caput last 2 commits:
+
+```bash
+git log --oneline -n 2 --author=Alf-caput
 ```
 
 Note: If the ouput of the command doesn't fit in the command window, git will enable a navigation mode that uses `j` to move down and `k` to move up.To exit this navigation mode press `q`. We can tell git to not enter this navigation mode if needed (it will print everything directly), by adding the `--no-pager` flag before `log` keyword.
