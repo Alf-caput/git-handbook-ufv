@@ -354,10 +354,10 @@ git commit -am "Remove multiprocessing"
 ```
 
 ## 7. Commit loggings and HEAD
-|       Command      |                      Description                     |         Common Args         |                      Args Descriptions                      |
-|:------------------:|:----------------------------------------------------:|:---------------------------:|:-----------------------------------------------------------:|
-|       git log      |                   Show commit logs                   | --oneline \| -n \| --author | oneline-format, selection of last commits, filter by author |
-| git --no-pager log | Show commit logs (without j/k navigation and q exit) | --oneline \| -n \| --author | oneline-format, selection of last commits, filter by author |
+|       Command      |                      Description                     |      Common Args      |                      Args Descriptions                      |
+|:------------------:|:----------------------------------------------------:|:---------------------:|:-----------------------------------------------------------:|
+|       git log      |                   Show commit logs                   | --oneline -n --author | oneline-format, selection of last commits, filter by author |
+| git --no-pager log | Show commit logs (without j/k navigation and q exit) | --oneline -n --author | oneline-format, selection of last commits, filter by author |
 
 The git log command provides a way to see the commit history, however it may not be very intuitive compared to other GUI options.
 
