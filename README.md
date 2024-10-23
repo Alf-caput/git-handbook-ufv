@@ -405,10 +405,32 @@ With the flag `--staged` changes between the index and the `HEAD` will be displa
 git diff --staged
 ```
 
-Remainder: `HEAD` is reference to a commit we are pointing to. Tipically it will be the tip of the `branch` and will follow us automatically as we commit or switch branches but it can also be a certain commit we have checked out in which case is called `detached HEAD`
+Remainder: `HEAD` is a reference to a commit we are pointing to. Tipically it will be the tip of the `branch` and will follow us automatically as we commit or switch branches but it can also be a certain commit we have checked out in which case is called `detached HEAD`.
+
+Last command is equivalent to:
+
+```bash
+git diff --staged HEAD
+```
 
 To display changes between 2 commits:
 
 ```bash
-git diff --staged
+git diff commit2-id commit1-id
 ```
+
+The command shows what has changed from the second commit passed, in order to match the first commit passed (commit2-id in this example).
+
+It is also possible to `git diff` commits referencing them by their relativity with `HEAD`. To refer to a version that is **n** commits behind `HEAD` (where **n** is an integer) we would use `HEAD~n`.
+
+For example, if we want to compare `HEAD` with previous commit we would use:
+
+```bash
+git diff HEAD~1 HEAD
+```
+
+Notes:
+
+- If the name of a file starts with `-`, when using this command we can use `--` flag before specifying paths and prevent Git from thinking is an option/flag.
+
+- We can also `git diff --staged HEAD~n` to compare the index with a version that is **n** commits behind.
