@@ -387,19 +387,19 @@ If the `HEAD` isn't pointing to the tip of a `branch` is called `detached HEAD` 
 
 A key feature of git is that it allows us to view what has changed between versions. The `git diff` command allows us to view changes between commits, the index, the worktree, ...
 
-Without arguments `git diff` will display changes between the working directory and the index.
+Without arguments `git diff` will display changes between the working directory and the index. Shows what differs from the staging area (index).
 
 ```bash
 git diff 
 ```
 
-Note: The command accepts paths to only show certain files. 
+Note: The command accepts paths to show specific files only. 
 
 ```bash
 git diff file2.txt some/path/to/file2.txt
 ```
 
-With the flag `--staged` changes between the index and the `HEAD` will be displayed. 
+With the flag `--staged` changes between the index and the `HEAD` will be displayed. Shows what differs from `HEAD`.
 
 ```bash
 git diff --staged
@@ -408,7 +408,6 @@ git diff --staged
 Remainder: `HEAD` is reference to a commit we are pointing to. Tipically it will be the tip of the `branch` and will follow us automatically as we commit or switch branches but it can also be a certain commit we have checked out in which case is called `detached HEAD`
 
 To display changes between 2 commits:
-
 
 ```bash
 git diff --staged
