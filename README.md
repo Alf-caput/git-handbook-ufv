@@ -515,3 +515,32 @@ git rm --cached file.txt
 ```
 
 Afterwards we will be able to ignore it with `.gitignore` as was shown.
+
+## 10. Amending commits
+
+Sometimes we may want to modify the history of our project, that is, existing commits. There are multiple strategies to modify how commits were implemented, in this section we focus in a simple one that has to do with the tip of the branch (last commit).
+
+Amending a commit consists of replacing the last commit with a new one that can differ in:
+
+- Commit message
+- Changes
+
+The following command will prompt us with a VS Code window (or your default editor).
+
+```bash
+git commit --ammend
+```
+
+This window allows us to rename the commit.
+
+And also, before doing this commit we can add changes to the Index in order to apply them to this commit replacement.
+
+Note: Although this strategy of modifying commit history is not as aggressive as others (we are just modifying the last commit) it is a destructive action and can lead to others having a diverging commit history. 
+
+This can be confusing, hence why requires force arguments to modify the remote repository.
+
+It is safe to do when working locally before pushing changes to the remote repository but is discouraged if the commit to be amended is already uploaded.  
+
+Instead consider alternatives that don't modify the remote commit history, but append new commits instead.
+
+(This is why there are protocols when working in professional projects)
